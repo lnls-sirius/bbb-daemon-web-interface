@@ -39,7 +39,8 @@ class Chart extends Component {
         return (
             <Bar
                 data={this.props.data} 
-                options={{}}
+                width={200} height={200} 
+                options={{maintainAspectRatio: false}} 
             />
         );
     };
