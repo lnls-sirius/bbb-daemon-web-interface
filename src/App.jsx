@@ -1,5 +1,12 @@
 import React, { Component } from "react";
 import NavBar from "./components/NavBar";
+
+import ViewNodes from "./components/nodes/ViewNodes";
+import EditNode from "./components/nodes/EditNodes";
+
+import ViewTypes from "./components/types/ViewTypes";
+import EditType from "./components/types/EditTypes";
+
 import Monitor from "./components/monitor/Monitor";
 
 import "./App.css";
@@ -23,28 +30,28 @@ class App extends Component {
         };
     }
 
-    handleWindowChange = (newWindow) => {   
+    handleWindowChange = (newWindow) => {
         if (this.isNewWindowValid(newWindow) && this.currentWindow !== newWindow) {
             this.setState({ currentWindow: newWindow })
-        } 
+        }
     };
 
-    isNewWindowValid = (newWindow) => {  
+    isNewWindowValid = (newWindow) => {
         return this.window.VALID_NUMS.includes(newWindow);
     };
 
-    renderWindow = () => {  
+    renderWindow = () => {
         switch (this.state.currentWindow) {
             case this.window.INSERT_NODE:
-                return <div className="ml-2 mr-2">INSERT_NODE</div>;
+                return <EditNode />
             case this.window.INSERT_TYPE:
-                return <div className="ml-2 mr-2">INSERT_TYPE</div>;
+                return <EditType />
             case this.window.VIEW_NODE:
-                return <div className="ml-2 mr-2">VIEW_NODE</div>;
+                return <ViewNodes />
             case this.window.VIEW_TYPE:
-                return <div className="ml-2 mr-2">VIEW_TYPE</div>;
+                return <ViewTypes />
             case this.window.MONITOR:
-                return <Monitor/> ;
+                return <Monitor />;
             default:
                 return <div className="ml-2 mr-2">Incorrect Window Value</div>;
         }
@@ -53,13 +60,13 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <NavBar 
-                    currentWindow={this.state.currentWindow} 
-                    window={this.window} 
+                <NavBar
+                    currentWindow={this.state.currentWindow}
+                    window={this.window}
                     handleWindowChange={this.handleWindowChange} />
- 
+
                 <div className="AppBody">
-                    {this.renderWindow()} 
+                    {this.renderWindow()}
                 </div>
             </div>
         );

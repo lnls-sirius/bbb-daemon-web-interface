@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Chart from './Chart';
-import { Table } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 
 class Monitor extends Component {
     constructor(props) {
@@ -54,19 +54,38 @@ class Monitor extends Component {
     render() {
         return (
             <div>
+                <div className="row">
+                    <div className="col-6">
+                        <Chart />
+                    </div>
+                    <div className="col-6">
+                        <Chart />
+                    </div>
+                </div>
+                <hr />
                 <div className="m-2">
-                    <div style={{ width: '50%', float: 'left' }}>
-                        <Chart />
-                    </div>
-                    <div style={{ width: '50%', float: 'left' }}>
-                        <Chart />
-                    </div>
-                </div> 
-                {this.renderConfiguredTable()}
-                <hr/>
-                {this.renderMisconfiguredTable()}
+                    {this.renderConfiguredTable()}
+                    <hr />
+                    {this.renderMisconfiguredTable()}
+                </div>
             </div>
         );
     };
 }
 export default Monitor;
+
+/**
+ * 
+                <div className="row m-2">
+                    <div className="col-2 bg-dark text-white m-2">
+                        <div> <Button className="mt-1 mb-1">Reboot BeagleBone</Button> </div> 
+                        <div> <Button className="mt-1 mb-1">Switch BeagleBone</Button> </div> 
+                        <div> <Button className="mt-1 mb-1"> Change Hostname </Button> </div> 
+                    </div>
+                    <div className="col">
+                        {this.renderConfiguredTable()}
+                        <hr/>
+                        {this.renderMisconfiguredTable()}
+                    </div>  
+                </div>
+ */
