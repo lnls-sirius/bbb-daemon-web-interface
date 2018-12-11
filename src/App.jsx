@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import NavBar from "./components/NavBar";
 
-import ViewNodes from "./components/nodes/ViewNodes";
-import EditNode from "./components/nodes/EditNodes";
-
-import ViewTypes from "./components/types/ViewTypes";
-import EditType from "./components/types/EditTypes";
-
 import Monitor from "./components/monitor/Monitor";
+import Settings from "./components/Settings";
 
 import "./App.css";
 
@@ -16,17 +11,15 @@ class App extends Component {
     constructor() {
         super();
         this.window = {
-            VALID_NUMS: [0, 1, 2, 3, 4],
+            VALID_NUMS: [0, 1],
             MONITOR: 0,
-
-            VIEW_NODE: 1,
-            INSERT_NODE: 2,
-
-            VIEW_TYPE: 3,
-            INSERT_TYPE: 4
+            SETTINGS: 1
         };
         this.state = {
-            currentWindow: this.window.MONITOR
+            currentWindow: this.window.MONITOR,
+            baseUrl: 'http://0.0.0.0:4850',
+            refreshInterval: 1000,
+            showSettings: false
         };
     }
 
@@ -40,33 +33,49 @@ class App extends Component {
         return this.window.VALID_NUMS.includes(newWindow);
     };
 
-    renderWindow = () => {
-        switch (this.state.currentWindow) {
-            case this.window.INSERT_NODE:
-                return <EditNode />
-            case this.window.INSERT_TYPE:
-                return <EditType />
-            case this.window.VIEW_NODE:
-                return <ViewNodes />
-            case this.window.VIEW_TYPE:
-                return <ViewTypes />
+    renderWindow = (currentWindow) => {
+        const { baseUrl, showSettings, refreshInterval } = this.state;
+
+        switch (currentWindow) {
+            case this.window.SETTINGS:
+                return <Settings
+                    show={showSettings}
+                    url={baseUrl}
+                    handleUpdateUrl={this.handleUpdateUrl}
+                />;
             case this.window.MONITOR:
-                return <Monitor />;
+                return <Monitor
+                    baseUrl={baseUrl}
+                    refreshInterval={refreshInterval} />;
             default:
                 return <div className="ml-2 mr-2">Incorrect Window Value</div>;
         }
     };
 
-    render() {
-        return (
-            <div className="App">
-                <NavBar
-                    currentWindow={this.state.currentWindow}
-                    window={this.window}
-                    handleWindowChange={this.handleWindowChange} />
+    handleUpdateUrl = (baseUrl) => {
+        this.setState({
+            baseUrl: baseUrl
+        });
+    }
+    handleDisplaySettings = () => {
+        this.setState((prevState, props) => {
+            return { showSettings: !(prevState.showSettings === true) };
+        });
+    }
 
-                <div className="AppBody">
-                    {this.renderWindow()}
+    render() {
+        const { currentWindow, showSettings } = this.state;
+        return (
+            <div>
+                <div className="App">
+                    <NavBar
+                        currentWindow={currentWindow}
+                        window={this.window}
+                        handleWindowChange={this.handleWindowChange}
+                        handleDisplaySettings={this.handleDisplaySettings} />
+                    <div className="AppBody">
+                        {this.renderWindow(currentWindow)}
+                    </div>
                 </div>
             </div>
         );

@@ -13,7 +13,7 @@ import {
 
 class NavBar extends Component {
     constructor(props) {
-        super(props); 
+        super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
@@ -27,35 +27,35 @@ class NavBar extends Component {
         });
     }
 
-    renderSelectedWindow = () => { 
-        const  window  = this.props.window; 
-        const  currentWindow = this.props.currentWindow;
-        
+    renderSelectedWindow = () => {
+        const window = this.props.window;
+        const currentWindow = this.props.currentWindow;
+
         let content = "Window Undefined";
-        
+
         switch (currentWindow) {
-            case window.INSERT_NODE:
-                content = "Insert Node";
-                break;
-            case  window.INSERT_TYPE:
-                content = "Insert Type";
-                break;
-            case  window.VIEW_NODE:
-                content = "View Node";
-                break
-            case  window.VIEW_TYPE:
-                content = "View Type";
-                break;
-            case  window.MONITOR:
+            // case  window.INSERT_TYPE:
+            //     content = "Insert Type";
+            //     break;
+            // case  window.VIEW_NODE:
+            //     content = "View Node";
+            //     break
+            // case  window.VIEW_TYPE:
+            //     content = "View Type";
+            //     break;
+            case window.MONITOR:
                 content = "Monitor Interface";
-                break; 
+                break;
+            case window.SETTINGS:
+                content = "Settings";
+                break;
         }
 
         return <div className="ml-2 mr-5 NavBarText">{content}</div>;
     };
 
-    renderWindowButton = (newWindowValue, displayText) =>{
-        const  currentWindow = this.props.currentWindow;
+    renderWindowButton = (newWindowValue, displayText) => {
+        const currentWindow = this.props.currentWindow;
         const handleWindowChange = this.props.handleWindowChange;
 
         const isDisabled = newWindowValue === currentWindow ? "disabled" : "";
@@ -63,20 +63,18 @@ class NavBar extends Component {
     };
 
     renderOptions = () => {
-        const  window  = this.props.window;
-        return ( 
+        const { window, handleDisplaySettings } = this.props;
+        return (
             <Nav navbar>
                 <NavItem>
                     {this.renderWindowButton(window.MONITOR, "Monitor Interface")}
                 </NavItem>
                 <NavItem>
-                    {this.renderWindowButton(window.VIEW_NODE, "View Nodes")}
-                    {this.renderWindowButton(window.INSERT_NODE, "Insert Node")}
-                </NavItem>
-                <NavItem>
+                    {this.renderWindowButton(window.SETTINGS, "Settings")}
+                    {/* {this.renderWindowButton(window.INSERT_NODE, "Insert Node")}
                     {this.renderWindowButton(window.VIEW_TYPE, "View Types")}
-                    {this.renderWindowButton(window.INSERT_TYPE, "Insert Type")}
-                </NavItem> 
+                    {this.renderWindowButton(window.INSERT_TYPE, "Insert Type")} } */}
+                </NavItem>
                 <NavItem>
                     <NavLink href="https://github.com/lnls-sirius/bbb-daemon">
                         GitHub
