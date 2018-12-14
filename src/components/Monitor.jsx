@@ -1,51 +1,16 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'reactstrap';
-import axios from 'axios';
+import Details from './Details';
 
 class Monitor extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            'nodes': [],
-            'filter': ''
+            filter: ''
         }
     }
 
-    componentDidMount() {
-        const refreshInterval = this.props.refreshInterval;
-        const baseUrl = this.props.baseUrl;
-        this.loadData(baseUrl);
-        this.intervalId = setInterval(this.loadData, refreshInterval, baseUrl);
-    }
-    componentWillUnmount() {
-        clearInterval(this.intervalId);
-    }
-
-    loadData = async (baseUrl) => {
-        var self = this;
-        // Make a request
-        axios.get(baseUrl + '/nodes')
-            .then(function (response) {
-                self.setState({ 'nodes': response.data });
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            });
-    }
-
-    handleReboot = (ip) => {
-        axios.post(this.props.baseUrl + '/node/reboot', {
-            ip: ip
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
 
     handleFiltering = (node) => {
         const filter = this.state.filter;
@@ -61,7 +26,6 @@ class Monitor extends Component {
         )
     }
 
-
     renderTableRows = (nodes) => {
         let rows = nodes
             .map(function (node, i) {
@@ -75,15 +39,12 @@ class Monitor extends Component {
                         <td>
                             <Button
                                 className="btn btn-danger"
-                                onClick={() => this.handleReboot(node['ip_address'])}>
+                                onClick={() => this.props.appFunctions.handleReboot(node['ip_address'])}>
                                 Reboot
                         </Button>
                         </td>
                         <td>
-                            <Button
-                                className="btn btn-info">
-                                Details
-                        </Button>
+                            <Details />
                         </td>
                     </tr>
                 )
@@ -113,6 +74,12 @@ class Monitor extends Component {
         );
     };
 
+    renderOfflineWarning = () => {
+        const { online } = this.props.appStates;
+        if (!online)
+            return <span className="m-2 badge badge-danger">Server Offline</span>
+    }
+
     renderTablePainel = (tableName, filter, nodes, filteredNodes) => {
         return <div>
             {tableName}
@@ -122,14 +89,17 @@ class Monitor extends Component {
                 placeholder="Search Node"
                 value={filter}
                 onChange={e => this.setState({ filter: e.target.value })} />
-            <span className="m-2 badge badge-success">Detected Nodes {nodes.length}</span>
-            <span className="m-2 badge badge-secondary">Displayed Nodes {filteredNodes.length}</span>
+            <a style={{ fontSize: 20 }}>
+                {this.renderOfflineWarning()}
+                <span className="m-2 badge badge-success">Detected Nodes {nodes.length}</span>
+                <span className="m-2 badge badge-secondary">Displayed Nodes {filteredNodes.length}</span>
+            </a>
         </div>
 
     };
 
     render() {
-        const { filter, nodes } = this.state;
+        const { filter, nodes } = this.props.appStates;
         const filteredNodes = nodes.filter(this.handleFiltering);
         let tableName = "Connected Nodes";
         let tableHeaderClass = "m-2 bg-primary text-white";

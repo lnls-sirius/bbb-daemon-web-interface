@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Settings from './Settings'
 
 import {
     Collapse,
@@ -28,26 +29,19 @@ class NavBar extends Component {
     }
 
     renderSelectedWindow = () => {
-        const window = this.props.window;
-        const currentWindow = this.props.currentWindow;
+        const {window, appStates} = this.props;
+        const {currentWindow} = appStates;
 
         let content = "Window Undefined";
 
-        switch (currentWindow) {
-            // case  window.INSERT_TYPE:
-            //     content = "Insert Type";
-            //     break;
-            // case  window.VIEW_NODE:
-            //     content = "View Node";
-            //     break
-            // case  window.VIEW_TYPE:
-            //     content = "View Type";
-            //     break;
+        switch (currentWindow) { 
             case window.MONITOR:
                 content = "Monitor Interface";
                 break;
             case window.SETTINGS:
                 content = "Settings";
+                break;
+            default:
                 break;
         }
 
@@ -55,25 +49,22 @@ class NavBar extends Component {
     };
 
     renderWindowButton = (newWindowValue, displayText) => {
-        const currentWindow = this.props.currentWindow;
-        const handleWindowChange = this.props.handleWindowChange;
+        const {currentWindow } = this.props.appStates;
+        const {handleWindowChange} = this.props.appFunctions;
 
         const isDisabled = newWindowValue === currentWindow ? "disabled" : "";
         return <Button onClick={() => handleWindowChange(newWindowValue)} className={"m-2 " + isDisabled} > {displayText}</Button>
     };
 
     renderOptions = () => {
-        const { window, handleDisplaySettings } = this.props;
+        const { window, appStates, appFunctions } = this.props;
         return (
             <Nav navbar>
                 <NavItem>
                     {this.renderWindowButton(window.MONITOR, "Monitor Interface")}
                 </NavItem>
                 <NavItem>
-                    {this.renderWindowButton(window.SETTINGS, "Settings")}
-                    {/* {this.renderWindowButton(window.INSERT_NODE, "Insert Node")}
-                    {this.renderWindowButton(window.VIEW_TYPE, "View Types")}
-                    {this.renderWindowButton(window.INSERT_TYPE, "Insert Type")} } */}
+                    <Settings appStates={appStates} appFunctions={appFunctions}/>
                 </NavItem>
                 <NavItem>
                     <NavLink href="https://github.com/lnls-sirius/bbb-daemon">
@@ -85,12 +76,16 @@ class NavBar extends Component {
     };
 
     render() {
+        const {baseUrl} = this.props.appStates;
         return (
             <div>
-                <Navbar className="navbar navbar-dark bg-dark ">
+                <Navbar className="navbar navbar-dark bg-dark">
                     <NavbarBrand href="/" className="mr-auto">
                         BeagleBone Daemon
                     </NavbarBrand>
+                    <span className='ml-2 mr-2' style={{fontSize:18, color:'white'}}>
+                        {baseUrl}
+                    </span>
                     {this.renderSelectedWindow()}
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                     <Collapse isOpen={!this.state.collapsed} navbar >
