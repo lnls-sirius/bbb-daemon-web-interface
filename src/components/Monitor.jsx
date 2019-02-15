@@ -44,7 +44,7 @@ class Monitor extends Component {
                         </Button>
                         </td>
                         <td>
-                            <Details />
+                            <Details node={node}/>
                         </td>
                     </tr>
                 )

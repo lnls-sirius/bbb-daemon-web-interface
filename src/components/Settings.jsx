@@ -26,19 +26,17 @@ class Settings extends Component {
             <ModalBody>
                 <form>
                     <div className='form-group row'>
-                        <div className='col-md-4'>
-                            <label
-                                className='m-2'>Server url: {baseUrl}
-                            </label>
+                        <div className='col-md-5'>
+                            <label> {baseUrl} </label>
                         </div>
-                        <div className='col-md-4'>
+                        <div className='col-md-5'>
                             <input
                                 className='m-2'
                                 type='text'
                                 placeholder={baseUrl}
                                 onChange={e => this.setState({ newUrl: e.target.value })} />
                         </div>
-                        <div className='col-md-4'>
+                        <div className='col-md-2'>
                             <button
                                 className='m-2'
                                 type='button'
