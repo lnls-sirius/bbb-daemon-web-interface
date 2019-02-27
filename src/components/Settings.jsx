@@ -16,7 +16,7 @@ class Settings extends Component {
             modal: !this.state.modal
         });
     }
-    
+
     renderContent = () => {
         const { baseUrl } = this.props.appStates;
         const { handleUpdateUrl } = this.props.appFunctions;
@@ -54,13 +54,13 @@ class Settings extends Component {
     renderModal = () => {
         return <div>
             <Button onClick={this.toggle}>General Settings</Button>
-            <Modal 
+            <Modal
                 fade={false}
                 isOpen={this.state.modal}
                 toggle={this.toggle}
                 className={this.props.className}
                 size={'lg'}>
-                <ModalHeader 
+                <ModalHeader
                     toggle={this.toggle}>
                     General Settings
                 </ModalHeader>
