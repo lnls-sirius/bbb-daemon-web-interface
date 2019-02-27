@@ -14,16 +14,20 @@ class Monitor extends Component {
 
     handleFiltering = (node) => {
         const filter = this.state.filter;
-
-        return (
-            filter === null ||
-            filter === '' ||
-            node.ip_address.includes(filter) ||
-            node.name.includes(filter) ||
-            node.details.includes(filter) ||
-            node.state_string.includes(filter) ||
-            node.config_time.includes(filter)
-        )
+        try{
+            var re = RegExp(filter);
+            return (
+                filter === null ||
+                filter === '' ||
+                re.test(node.ip_address) ||
+                re.test(node.name) ||
+                re.test(node.details) ||
+                re.test(node.state_string) ||
+                re.test(node.config_time)
+            )
+        }catch(ex){
+            return true;
+        }
     }
 
     renderTableRows = (nodes) => {
@@ -44,7 +48,9 @@ class Monitor extends Component {
                         </Button>
                         </td>
                         <td>
-                            <Details node={node}/>
+                            <Details node={node}
+                            appFunctions={this.props.appFunctions}
+                            />
                         </td>
                     </tr>
                 )
@@ -113,4 +119,4 @@ class Monitor extends Component {
         );
     };
 }
-export default Monitor; 
+export default Monitor;
