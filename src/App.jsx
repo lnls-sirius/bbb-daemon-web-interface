@@ -18,7 +18,7 @@ class App extends Component {
         };
         this.state = {
             currentWindow: this.window.MONITOR,
-            baseUrl: 'http://0.0.0.0:4850',
+            baseUrl: 'https://10.0.38.42/bbb-daemon/api',
             refreshInterval: 2000,
             showSettings: false,
             nodes: [],
