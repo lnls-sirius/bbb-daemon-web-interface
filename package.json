@@ -2,6 +2,7 @@
   "name": "bbb-daemon-web-interface",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/bbb-daemon",
   "dependencies": {
     "bootstrap": "^4.1.3",
     "react": "^16.5.2",
