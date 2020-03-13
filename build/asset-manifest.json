@@ -1,0 +1,15 @@
+{
+  "main.css": "/bbb-daemon/static/css/main.ec3fdb67.chunk.css",
+  "main.js": "/bbb-daemon/static/js/main.8a37fcd0.chunk.js",
+  "main.js.map": "/bbb-daemon/static/js/main.8a37fcd0.chunk.js.map",
+  "static/css/1.5fbddb11.chunk.css": "/bbb-daemon/static/css/1.5fbddb11.chunk.css",
+  "static/js/1.9c8e50b4.chunk.js": "/bbb-daemon/static/js/1.9c8e50b4.chunk.js",
+  "static/js/1.9c8e50b4.chunk.js.map": "/bbb-daemon/static/js/1.9c8e50b4.chunk.js.map",
+  "runtime~main.js": "/bbb-daemon/static/js/runtime~main.93d91dd8.js",
+  "runtime~main.js.map": "/bbb-daemon/static/js/runtime~main.93d91dd8.js.map",
+  "static/css/1.5fbddb11.chunk.css.map": "/bbb-daemon/static/css/1.5fbddb11.chunk.css.map",
+  "static/css/main.ec3fdb67.chunk.css.map": "/bbb-daemon/static/css/main.ec3fdb67.chunk.css.map",
+  "index.html": "/bbb-daemon/index.html",
+  "precache-manifest.c2c66c05d66eee8fe1ccfe754d852fe5.js": "/bbb-daemon/precache-manifest.c2c66c05d66eee8fe1ccfe754d852fe5.js",
+  "service-worker.js": "/bbb-daemon/service-worker.js"
+}
