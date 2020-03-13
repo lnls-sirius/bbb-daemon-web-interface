@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'reactstrap';
-import Details from './Details';
 
 class Monitor extends Component {
 
@@ -37,14 +36,8 @@ class Monitor extends Component {
                         <td>{node['state_string']}</td>
                         <td>{node['config_time']}</td>
                         <td>
-                            <Button
-                                className="btn btn-danger"
-                                onClick={() => this.props.appFunctions.handleReboot(node['ip_address'])}>
-                                Reboot
-                        </Button>
                         </td>
                         <td>
-                            <Details />
                         </td>
                     </tr>
                 )

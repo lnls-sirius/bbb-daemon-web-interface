@@ -53,10 +53,6 @@ class App extends Component {
         }
     };
 
-    handleReboot = (ip) => {
-        rebootNode(this.props.baseUrl, ip);
-    }
-
     handleUpdateUrl = (newBaseUrl) => {
         this.setState({
             baseUrl: newBaseUrl
@@ -79,16 +75,11 @@ class App extends Component {
                         handleUpdateUrl: this.handleUpdateUrl,
                         handleDisplaySettings: this.handleDisplaySettings,
                         handleWindowChange: this.handleWindowChange,
-                        handleReboot: this.handleReboot
                     }} />;
             default:
                 return <div className="m2">Incorrect Window Value</div>;
         }
     };
-
-    handleReboot = (ip) => {
-        rebootNode(this.state.baseUrl, ip);
-    }
 
     render() {
         const { currentWindow } = this.state;
